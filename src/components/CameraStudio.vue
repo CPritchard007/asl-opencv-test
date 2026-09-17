@@ -36,8 +36,11 @@ async function boot(): Promise<void> {
   try {
     landmarker = await createHandLandmarker()
   } catch (caught) {
-    error.value =
-      caught instanceof Error ? caught.message : 'Could not start hand tracking'
+    console.error('Could not start hand tracking', caught)
+    const detail = caught instanceof Error ? caught.message : String(caught ?? '')
+    error.value = detail
+      ? `Could not start hand tracking: ${detail}`
+      : 'Could not start hand tracking'
     return
   }
 

@@ -6,11 +6,9 @@ const MODEL_URL =
   'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task'
 
 function wasmUrl(): string {
-  if (import.meta.env.PROD) {
-    return 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.0.1/wasm/'
-  }
-
-  return new URL(`${import.meta.env.BASE_URL}mediapipe-wasm/`, document.baseURI).href
+  // FilesetResolver adds its own slash. Use the matching runtime shipped with
+  // this build, including the repository prefix on GitHub Pages.
+  return new URL(`${import.meta.env.BASE_URL}mediapipe-wasm`, document.baseURI).href
 }
 
 export type HandFrame = {
