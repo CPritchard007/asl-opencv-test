@@ -35,8 +35,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          BASE_PATH: /${{ github.event.repository.name }}/
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
@@ -45,5 +43,6 @@ jobs:
           publish_dir: ./dist
           publish_branch: gh-pages
           force_orphan: true
+          dotfiles: true
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com

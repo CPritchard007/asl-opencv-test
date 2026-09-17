@@ -202,12 +202,12 @@ export function useAsl() {
   function refresh(): void {
     dataset = loadDataset()
     model = loadModel()
-    if (dataset.samples.length === 0) {
+    if (dataset.samples.length === 0 && import.meta.env.DEV) {
       void importFromServer()
       return
     }
 
-    applyState(dataset, model ?? persistDataset(dataset))
+    applyState(dataset, model ?? (dataset.samples.length > 0 ? persistDataset(dataset) : null))
   }
 
   async function importFromServer(): Promise<void> {
